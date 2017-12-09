@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+  
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  <title>Quotation Program</title>
+  <script src="https://unpkg.com/vue@2.5.8/dist/vue.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/locale/en-gb.js"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.2/moment-with-locales.js"></script> -->
+  
+</head><body>
+<div id="wrp1">
+  <div id="hdr">
+    <h3>Panalal Mohanlal &amp; Co</h3>
+   
+  </div>
+<!-- end of hdr div -->
+  <div id="tblo">
+    <table>
+      <thead><tr>
+		  <th>Sr</th>
+		  <th>Q No</th>
+		  <th>Q Dt</th>
+		  <th>Party</th>
+		  <th>Amount</th>
+		  <th>Select</th>
+
+	  </tr>
+	  <tbody v-if='knt >= 0'>
+		  <tr v-for= "(quo,i) in quos">
+			  <td>{{i }}</td>
+			  <td>{{quo.qno}}</td>
+			  <td>{{quo.qdt }}</td>
+			  <td>{{quo.pname }}</td>
+			  <td>{{quo.qamt }}</td>
+			  <td><input type="radio" v-model="sel" name="sel" :value ="i-1" @change="selupd"></td>
+		  </tr>
+
+	  </tbody>
+       </thead>
+     </table>
+     <hr>
+  </div>
+<!-- end of tblo div -->
+  <div id="but"><button @click="addclk"  :disabled="!iflg">Add</button>&nbsp;
+    <button :disabled="!iflg" @click="ediclk" >Edit</button>&nbsp;
+    <button :disabled="!iflg" @click="delclk" >Delete</button>&nbsp;
+    <button :disabled="!iflg" @click="prnclk" >Print</button>
+    <hr>
+  </div>   
+<!-- end of but div -->
+<div id="inp" v-if = " knt>=0" > 
+    <input v-model.number ="quos[knt].qno" placeholder="Qno" :disbaled="iflg" readonly />&nbsp;
+    <input v-model="quo.qdt" placeholder="Qdt" :disabled="iflg"/>&nbsp;
+    <input v-model="quo.enqno" placeholder="Enq No" :disabled="iflg"/>&nbsp;
+    <input v-model="quo.enqdt" placeholder="Enq Dt" :disabled="iflg"/>&nbsp;
+    <br>
+    <input v-model="quo.pname" placeholder="Party Name" :disabled="iflg"/>&nbsp;
+    <input v-model="quo.c" placeholder="Contact" :disabled="iflg"/>&nbsp;
+    <input v-model="quo.e" placeholder="Email" :disabled="iflg"/>&nbsp;
+    <br>
+<!--    <input v-model="" placeholder=""/>&nbsp;
+<input v-model="" placeholder=""/>&nbsp; -->
+    <br>
+    <textarea rows="3" cols="20" v-model="quo.paddr" :disabled='iflg'>Address</textarea> &nbsp;
+    <textarea rows="3" cols="20" :disabled="iflg">Notes</textarea> &nbsp;
+     <button  @click="clkSav" :disabled="iflg">Save</button >&nbsp;<button  @click="clkCanc":disabled='iflg'>Cancel</button>&nbsp; <button  @click="clkItm":disabled='iflg'>Items</button>
+  </div>  
+<!-- end of inp div -->
+
+</div> <!-- End of Vue Wrapper Div -->
+	<script>
+alert("all is well");
+function qitm(){
+	this.qno=""  ;
+	this.qdt=""  ;
+	this.pname=""  ;
+	this.paddr=""  ;
+	this.enqno=""  ;
+	this.qamt=""  ;
+	this.c=""  ;
+	this.e=""  ;
+
+}
+
+const app = new Vue(
+	{
+	el:"#wrp1",
+	data:{
+	  iflg: true ,
+		sel:0,
+		knt:-1,
+		quos:[],
+		quo :{
+			qno:"",
+			qdt:  "", //moment('11/11/2017','DD/MM/YYYY',true).format('L') ,
+			pname:"",
+			paddr:"",
+			enqno:"",
+			enqdt:"",
+			qamt:0 ,
+			c: "s",
+			e: "fa",
+			sl:""
+		}
+	},
+	methods:{
+		tglRo:function(){
+		this.iflg = ! this.iflg ;
+		},
+		addclk: function(){
+			this.knt++;
+			this.quos.push( new qitm) ;
+			alert("adding");
+			this.tglRo();
+		},
+		ediclk: function(){
+		   this.tglRo();
+		},
+		delclk: function(){
+		   this.tglRo();	
+		},
+		prnclk: function(){
+	           this.tglRo();	
+		},
+		clkSav: function(){
+		  this.tglRo();
+		},
+		clkCanc: function(){
+		  this.tglRo(); 
+		},
+		clkItm: function() {
+                  this.tglRo();
+		},
+		selupd: function() {
+
+		}
+	}
+})
+
+alert("done");
+	</script>
+</body></html>

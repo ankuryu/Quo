@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+  
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  <title>Quotation</title>
+
+  
+  
+  <style type="text/css">
+.enqdtls {
+  position: relative;
+  width: 550px;
+  top: -305px;
+  background-color: #ffff99;
+  display: block;
+  height: 300px;
+  left: 600px;
+  float: none;
+}
+.qtp {
+  width: 600px;
+  background-color: #ccffff;
+  height: 300px;
+}
+
+  </style>
+</head><body>
+<div id="wrp1">
+<div class="qtp"><span class="j1"><br>
+Qno:&nbsp;{{Qno}}</span>&nbsp;
+<span class="j2">{{Qdt}}</span>&nbsp;
+<br>
+Party: <input v-model="pname" size="50">
+<br>
+Address<br>
+<textarea cols="40" rows="4" name="paddr"></textarea><br>
+<br>
+Contact :<input v-model="cont" size="50"><br>
+Email :<input v-model="eml" size="50"><br>
+Mbl :<input v-model="mbl" size="12"><br>
+<span class="j1"><span><span class="j2"><span></span></span></span></span>
+</div>
+<!--  End of the div Qtp  --><!--  Start of div enqdtls -->
+<div class="enqdtls">Enq No <span class="j1"><span><span class="j2"><span><input v-model="pname" size="50"></span>&nbsp; Dtd </span></span></span><span class="j1"><span><span class="j2"><span><input v-model="pname" size="50"></span><br>
+Amt :<br>
+Notes<br>
+<textarea cols="60" rows="7" name="notes"></textarea><br>
+</span></span></span></div>
+<!-- End of EnqDtls  div and start of Qtbl div -->
+<div class="qtbl">
+<h3>Quotation table</h3>
+<table>
+  <thead><tr>
+    <th>Date</th>
+    <th>Qno</th>
+    <th>Party</th>
+    <th>Select</th>
+  </tr>
+  </thead> <tbody>
+  </tbody>
+</table>
+<span class="btnq"><button>New</button>&nbsp;<button>Edit</button>&nbsp;<button>Del</button>&nbsp;</span>
+</div>
+<!-- Start of Div for Qitm -->
+<div class="qitm">
+<h3>Quotation Items</h3>
+<textarea cols="50" rows="2" name="desc"></textarea><input size="5" name="qty" value="0"> <input size="5" name="qty" value="0"> <input size="5" name="qty" value="0"> <input size="5" name="qty" value="0"> <input size="5" name="qty" value="0"> <input size="5" name="qty" value="0"> </div>
+<!-- Start of Div for Item Table -->
+<div class="itbl">
+<h3>Item Table</h3>
+<br>
+<table style="text-align: left; width: 800px;" border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <th style="vertical-align: top; width: 40px;">Sr<br>
+      </th>
+      <th style="vertical-align: top; width: 300px;">Desc<br>
+      </th>
+      <th style="vertical-align: top; width: 60px;">Qty<br>
+      </th>
+      <th style="vertical-align: top; width: 60px;">Unit<br>
+      </th>
+      <th style="vertical-align: top; width: 60px;">URate<br>
+      </th>
+      <th style="vertical-align: top; width: 60px;">Disc<br>
+      </th>
+      <th style="vertical-align: top; width: 60px;">GST<br>
+      </th>
+      <th style="vertical-align: top; width: 60px;">HSN<br>
+      </th>
+      <th style="vertical-align: top; width: 60px;">Calc<br>
+      </th>
+      <th style="vertical-align: top; width: 60px;">Sel<br>
+      </th>
+    </tr>
+  </tbody>
+</table>
+<br>
+<span class="btnitm"><button>New</button>&nbsp;<button>Edit</button>&nbsp;<button>Del</button>&nbsp;</span>
+</div>
+<!-- Start of Div for  Qtc  -->
+<div class="Qtc">
+<h3>Quotation Terms</h3>
+<ul>
+  <li>Rates</li>
+  <li>Freight/Packing/Forwarding</li>
+  <li>Delivery</li>
+  <li>Payment</li>
+  <li>Validity</li>
+  <li>Technical </li>
+</ul>
+<br>
+</div>
+</div>
+
+<!-- End of   Vuejs wrp1 -->
+</body></html>

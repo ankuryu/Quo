@@ -109,8 +109,10 @@ const app = new Vue(
 		},
 		addclk: function(){
 			this.knt++;
-			this.quos.push( new qitm) ;
+			this.quos.push( this.quo) ;
+			this.quos[this.knt].qno = this.knt
 			alert("adding");
+			this.quo = new qitm ;
 			this.tglRo();
 		},
 		ediclk: function(){

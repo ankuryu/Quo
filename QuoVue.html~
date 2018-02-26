@@ -32,7 +32,7 @@
 			  <td>{{quo.qdt }}</td>
 			  <td>{{quo.pname }}</td>
 			  <td>{{quo.qamt }}</td>
-			  <td><input type="radio" v-model="sel" name="sel" :value ="i-1" @change="selupd"></td>
+			  <td><input type="radio" v-model="sel" name="sel" :value ="i" @change="selupd"></td>
 		  </tr>
 
 	  </tbody>
@@ -86,7 +86,8 @@ const app = new Vue(
 	{
 	el:"#wrp1",
 	data:{
-	  iflg: true ,
+		addflg: 0,
+	  	iflg: true ,
 		sel:0,
 		knt:-1,
 		quos:[],
@@ -108,6 +109,7 @@ const app = new Vue(
 		this.iflg = ! this.iflg ;
 		},
 		addclk: function(){
+			this.addflg = 0;
 			this.knt++;
 			this.quos.push( this.quo) ;
 			this.quos[this.knt].qno = this.knt
@@ -123,6 +125,13 @@ const app = new Vue(
 		},
 		delclk: function(){
 			// check if there are records to delete
+			 if(!this.quos.length > 0 ) {
+				 wait window "No records to delete";
+				 return
+			 } else {
+				 alert("Delete Sr " + this.sel ) + '?' ;
+			 }
+
 			// ask for confirmation
 			// carry out the operation
 		   this.tglRo();	
@@ -135,6 +144,14 @@ const app = new Vue(
 		},
 		clkSav: function(){
 			// check if the operation is add
+			if(this.addflg == 0) {
+				this.knt++ ;
+				this.quo.push(this.quo);
+			} else {
+				// for edit save it here
+				this.quos[this.sel] = quo
+			}
+
 		  this.tglRo();
 		},
 		clkCanc: function(){

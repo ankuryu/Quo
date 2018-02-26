@@ -32,7 +32,7 @@
 			  <td>{{quo.qdt }}</td>
 			  <td>{{quo.pname }}</td>
 			  <td>{{quo.qamt }}</td>
-			  <td><input type="radio" v-model="sel" name="sel" :value ="i-1" @change="selupd"></td>
+			  <td><input type="radio" v-model="sel" name="sel" :value ="i" @change="selupd"></td>
 		  </tr>
 
 	  </tbody>
@@ -119,12 +119,26 @@ const app = new Vue(
 		},
 		ediclk: function(){
 			// check if there is a record to edit
+			if( this.quos.length <=0) {
+				alert("Cannot Edit  records, None Exists !! ");
+				return ;
+			} else {
+				this.addflg = this.sel
+				this.quo = quos[this.sel]
+			}
 			// get the value of the record
 			// set quo to its value
 		   this.tglRo();
 		},
 		delclk: function(){
 			// check if there are records to delete
+			 if(!this.quos.length > 0 ) {
+				 wait window "No records to delete";
+				 return
+			 } else {
+				 alert("Delete Sr " + this.sel ) + '?' ;
+			 }
+
 			// ask for confirmation
 			// carry out the operation
 		   this.tglRo();	
@@ -140,6 +154,10 @@ const app = new Vue(
 			if(this.addflg == 0) {
 				this.knt++ ;
 				this.quo.push(this.quo);
+			} else {
+				// for edit save it here
+				this.quos[this.sel] = quo
+			}
 
 		  this.tglRo();
 		},

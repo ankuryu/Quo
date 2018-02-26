@@ -49,7 +49,7 @@
   </div>   
 <!-- end of but div -->
 <div id="inp" v-if = " knt>=0" > 
-    <input v-model.number ="quos[knt].qno" placeholder="Qno" :disbaled="iflg" readonly />&nbsp;
+    <input v-model.number ="quo.qno" placeholder="Qno" :disbaled="iflg" readonly />&nbsp;
     <input v-model="quo.qdt" placeholder="Qdt" :disabled="iflg"/>&nbsp;
     <input v-model="quo.enqno" placeholder="Enq No" :disabled="iflg"/>&nbsp;
     <input v-model="quo.enqdt" placeholder="Enq Dt" :disabled="iflg"/>&nbsp;
@@ -76,9 +76,11 @@ function qitm(){
 	this.pname=""  ;
 	this.paddr=""  ;
 	this.enqno=""  ;
-	this.qamt=""  ;
-	this.c=""  ;
-	this.e=""  ;
+	this.enqdt="" ;
+	this.qamt= 0  ;
+	this.c="Contact"  ;
+	this.e="eml@com"  ;
+	this.sl = "" ;
 
 }
 
@@ -89,7 +91,7 @@ const app = new Vue(
 		addflg: 0,
 	  	iflg: true ,
 		sel:0,
-		knt:-1,
+		knt: 0,
 		quos:[],
 		quo :{
 			qno:"",
@@ -110,15 +112,19 @@ const app = new Vue(
 		},
 		addclk: function(){
 			this.addflg = 0;
-			this.knt++;
-			this.quos.push( this.quo) ;
-			this.quos[this.knt].qno = this.knt
 			alert("adding");
 			this.quo = new qitm ;
 			this.tglRo();
 		},
 		ediclk: function(){
 			// check if there is a record to edit
+			if( this.quos.length <=0) {
+				alert("Cannot Edit  records, None Exists !! ");
+				return ;
+			} else {
+				this.addflg = this.sel
+				this.quo = this.quos[this.sel]
+			}
 			// get the value of the record
 			// set quo to its value
 		   this.tglRo();
@@ -126,7 +132,7 @@ const app = new Vue(
 		delclk: function(){
 			// check if there are records to delete
 			 if(!this.quos.length > 0 ) {
-				 wait window "No records to delete";
+				 alert("No records to delete");
 				 return
 			 } else {
 				 alert("Delete Sr " + this.sel ) + '?' ;
@@ -145,11 +151,12 @@ const app = new Vue(
 		clkSav: function(){
 			// check if the operation is add
 			if(this.addflg == 0) {
-				this.knt++ ;
-				this.quo.push(this.quo);
+				this.quos.push( this.quo) ;
+				this.knt = this.quos.length ;
+				this.quos[this.knt].qno = this.knt
 			} else {
 				// for edit save it here
-				this.quos[this.sel] = quo
+				this.quos[this.sel] = this.quo
 			}
 
 		  this.tglRo();

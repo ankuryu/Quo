@@ -9,6 +9,7 @@
   
 </head><body>
 <div id="wrp1">
+	<div id="qtop" v-show="!itm">
   <div id="hdr">
     <h3>Panalal Mohanlal &amp; Co</h3>
    
@@ -66,8 +67,75 @@
      <button  @click="clkSav" :disabled="iflg">Save</button >&nbsp;<button  @click="clkCanc":disabled='iflg'>Cancel</button>&nbsp; <button  @click="clkItm":disabled='iflg'>Items</button>
   </div>  
 <!-- end of inp div -->
+	</div> <!--End of  Qtop Wrapper Div -->
 
 </div> <!-- End of Vue Wrapper Div -->
+
+
+<div id="wrpi">
+	<div id="itm" v-show='itm'>
+  <div id="ihdr">
+    <h3>Quotation Item</h3>
+   
+  </div>
+<!-- end of hdr div -->
+  <div id="tbli">
+    <table>
+      <thead><tr>
+		  <th>Sr</th>
+		  <th></th>
+		  <th></th>
+		  <th></th>
+		  <th></th>
+		  <th></th>
+
+	  </tr>
+	  <tbody v-if='iknt >= 0'>
+		  <tr v-for= "(iquo,i) in iquos">
+			  <td>{{i }}</td>
+			  <td>{{iquo.qno}}</td>
+			  <td>{{iquo.qdt }}</td>
+			  <td>{{iquo.pname }}</td>
+			  <td>{{iquo.qamt }}</td>
+			  <td><input type="radio" v-model="isel" name="isel" :value ="i" @change="iselupd"></td>
+		  </tr>
+
+	  </tbody>
+       </thead>
+     </table>
+     <hr>
+  </div>
+<!-- end of tblo div -->
+  <div id="but"><button @click="iaddclk"  :disabled="!ifli">Add</button>&nbsp;
+    <button :disabled="!ifli" @click="iediclk" >Edit</button>&nbsp;
+    <button :disabled="!ifli" @click="idelclk" >Delete</button>&nbsp;
+    <button :disabled="!ifli" @click="iprnclk" >Print</button>
+    <hr>
+  </div>   
+<!-- end of but div -->
+<div id="inp" v-if = " knt>=0" > 
+    <input v-model.number ="iquo.qno" placeholder="Qno" :disbaled="ifli" readonly />&nbsp;
+    <input v-model="iquo.qdt" placeholder="Qdt" :disabled="ifli"/>&nbsp;
+    <input v-model="iquo.enqno" placeholder="Enq No" :disabled="ifli"/>&nbsp;
+    <input v-model="iquo.enqdt" placeholder="Enq Dt" :disabled="ifli"/>&nbsp;
+    <br>
+    <input type="text" ref="pnm" v-model="iquo.pname" placeholder="Party Name" :disabled="ifli"/>&nbsp;
+    <input v-model="iquo.c" placeholder="Contact" :disabled="ifli"/>&nbsp;
+    <input v-model="iquo.e" placeholder="Email" :disabled="ifli"/>&nbsp;
+    <br>
+<!--    <input v-model="" placeholder=""/>&nbsp;
+<input v-model="" placeholder=""/>&nbsp; -->
+    <br>
+    <textarea rows="3" cols="20" v-model="iquo.paddr" :disabled='ifli'>Address</textarea> &nbsp;
+    <textarea rows="3" cols="20" :disabled="ifli">Notes</textarea> &nbsp;
+     <button  @click="clkSav" :disabled="ifli">Save</button >&nbsp;<button  @click="clkCanc":disabled='ifli'>Cancel</button>&nbsp; <button  @click="clkItm":disabled='ifli'>Items</button>
+  </div>  
+<!-- end of inp div -->
+	</div> <!-- End of Item Wrapper div -->
+</div> <!-- End of Vue Wrapper Div -->
+
+
+
 	<script>
 alert("all is well");
 function qitm(){
@@ -81,6 +149,25 @@ function qitm(){
 	this.c="Contact"  ;
 	this.e="eml@com"  ;
 	this.sl = "" ;
+
+}
+
+function nitm() {
+
+	this.sr
+	this.type
+	this.desc
+	this.qty
+	this.unt
+	this.rate
+	this.disc
+	this.tax
+	this.amt
+	this.cost
+	this.pi
+	this.fac
+	this.evl
+	this.rmrk
 
 }
 
@@ -175,6 +262,88 @@ const app = new Vue(
 		}
 	}
 })
+
+
+
+const itm = new Vue(
+
+	{
+		el: "#witm",
+		data :{} ,
+		methods:{
+		
+		itglRo:function(){
+		this.iflg = ! this.iflg ;
+		},
+		addiclk: function(){
+			this.addflg = -1;
+			alert("adding");
+			this.quo = new qitm ;
+			this.tglRo();
+			this.$nextTick(() =>this.$refs.pnm.focus());
+		},
+		ediiclk: function(){
+			// check if there is a record to edit
+			if( this.quos.length <=0) {
+				alert("Cannot Edit  records, None Exists !! ");
+				return ;
+			} else {
+				this.addflg = this.sel
+				this.quo = this.quos[this.sel]
+				this.$refs.pnm.focus();
+			}
+			// get the value of the record
+			// set quo to its value
+		   this.itglRo();
+		},
+		deliclk: function(){
+			// check if there are records to delete
+			 if(!this.quos.length > 0 ) {
+				 alert("No records to delete");
+				 return
+			 } else {
+				 alert("Delete Sr " + this.sel ) + '?' ;
+			 }
+
+			// ask for confirmation
+			// carry out the operation
+		   this.itglRo();	
+		},
+		prniclk: function(){
+			// check if there are records to print
+			// transfer to quo
+			// send for printing
+	           this.itglRo();	
+		},
+		clkiSav: function(){
+			// check if the operation is add
+			if(this.addflg < 0) {
+				this.quos.push( this.quo) ;
+				this.knt = this.quos.length ;
+				this.quos[this.knt-1].qno = this.knt-1 ;
+			} else {
+				// for edit save it here
+				this.quos[this.sel] = this.quo
+			}
+
+		  this.itglRo();
+		},
+		clkiCanc: function(){
+		  this.itglRo(); 
+		},
+		clkBck: function() {
+                  this.itglRo();
+		},
+		seliupd: function() {
+
+		}
+	
+		} 
+
+	})
+
+
+	
 
 alert("done");
 	</script>

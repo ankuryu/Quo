@@ -54,7 +54,7 @@
     <input v-model="quo.enqno" placeholder="Enq No" :disabled="iflg"/>&nbsp;
     <input v-model="quo.enqdt" placeholder="Enq Dt" :disabled="iflg"/>&nbsp;
     <br>
-    <input v-model="quo.pname" placeholder="Party Name" :disabled="iflg"/>&nbsp;
+    <input type="text" ref="pnm" v-model="quo.pname" placeholder="Party Name" :disabled="iflg"/>&nbsp;
     <input v-model="quo.c" placeholder="Contact" :disabled="iflg"/>&nbsp;
     <input v-model="quo.e" placeholder="Email" :disabled="iflg"/>&nbsp;
     <br>
@@ -81,6 +81,25 @@ function qitm(){
 	this.c="Contact"  ;
 	this.e="eml@com"  ;
 	this.sl = "" ;
+
+}
+
+function nitm() {
+
+	this.sr
+	this.type
+	this.desc
+	this.qty
+	this.unt
+	this.rate
+	this.disc
+	this.tax
+	this.amt
+	this.cost
+	this.pi
+	this.fac
+	this.evl
+	this.rmrk
 
 }
 
@@ -111,10 +130,12 @@ const app = new Vue(
 		this.iflg = ! this.iflg ;
 		},
 		addclk: function(){
-			this.addflg = 0;
+			this.addflg = -1;
 			alert("adding");
 			this.quo = new qitm ;
 			this.tglRo();
+			alert('setting focus');
+			this.$nextTick(() =>this.$refs.pnm.focus());
 		},
 		ediclk: function(){
 			// check if there is a record to edit
@@ -124,6 +145,7 @@ const app = new Vue(
 			} else {
 				this.addflg = this.sel
 				this.quo = this.quos[this.sel]
+				this.$refs.pnm.focus();
 			}
 			// get the value of the record
 			// set quo to its value
@@ -150,7 +172,7 @@ const app = new Vue(
 		},
 		clkSav: function(){
 			// check if the operation is add
-			if(this.addflg == 0) {
+			if(this.addflg < 0) {
 				this.quos.push( this.quo) ;
 				this.knt = this.quos.length ;
 				this.quos[this.knt-1].qno = this.knt-1 ;
@@ -172,6 +194,20 @@ const app = new Vue(
 		}
 	}
 })
+
+
+
+const itm = new Vue(
+
+	{
+		el: "#witm",
+		data :{} ,
+		methods:{} 
+
+	})
+
+
+	
 
 alert("done");
 	</script>
